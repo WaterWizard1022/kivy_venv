@@ -19,6 +19,15 @@ MDScreen:
     
             MDActionTopAppBarButton:
                 icon: "dots-vertical"
+    MDBoxLayout:
+        
+        orientation:"vertical"
+        MDScrollView:
+            pos_hint: {'center_y': .5, 'center_x': .5}
+            size_hint: .9, .8
+            MDList:
+                id : container
+            
     
         
     MDButton:
@@ -60,13 +69,10 @@ MDScreen:
         MDButtonText:
             text: "ADD"
     
+    
+    
 
-
-        NoteBox:
-            text:'a'
-
-
-        
+    
 
 <Tuesday>:   
     name: "Tuesday"

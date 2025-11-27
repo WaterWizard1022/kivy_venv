@@ -1,5 +1,6 @@
 from kivy.lang import Builder
 import psycopg2
+from kivy.properties import ObjectProperty
 from kivy.core.window import Window
 from kivy.uix.widget import Widget
 from kivymd.uix.button import MDButton, MDButtonText
@@ -40,6 +41,7 @@ from kivymd.uix.list import MDListItem, MDListItemHeadlineText
 Window.size = (400,800)
 
 class Monday(Screen):
+
     pass
 class Tuesday(Screen):
     pass
@@ -52,6 +54,10 @@ sm.add_widget(Tuesday(name='Tuesday'))
 class NoteBox(MDListItem):
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
+        self.size_hint_x = None
+        self.size_hint_y = None
+        self.size = (150, 150)
+        self.color = (0.8, 0.8, 0.8, 1)
     
 
 
@@ -167,7 +173,7 @@ class App1(MDApp):
                 MDButton(
                     MDButtonText(text="Accept"),
                     style="text",
-                    #on_release=self.submit()
+                    on_release=lambda x:self.submit()
                 ),
                 spacing="8dp",
             ),
@@ -177,22 +183,19 @@ class App1(MDApp):
 
     def close_dialog(self):
         self.dialog.dismiss()
-    '''
+
+    
     def submit(self):
-        conn = psycopg2.connect(
-			host = "ccu6unqr99fgui.cluster-czrs8kj4isg7.us-east-1.rds.amazonaws.com", 
-			user = "u5n26bf6f6ifpr",
-			password = "pc9052ef292d5046cdf83fb6731101b7f66209a03709ded41f53a4028108d6a4d",
-			dbname = "d3o7isrekq6ci5",
-			port="5432"
-			)
-        c = conn.cursor()
-        sql_command = "INSERT INTO customers (name) VALUES (%s)"
-        values = ()
-        c.execute(sql_command, values)
-        conn.commit()
-        conn.close()
-        '''
+        self.dialog.dismiss()
+        for _ in range(50):
+            self.root.ids.container.add_widget(
+                MDListItem(
+                    MDListItemHeadlineText(text="Headline",),
+                )                  
+            )
+            
+
+        
 
         
 
