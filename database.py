@@ -20,7 +20,7 @@ class Database:
         created_task = self.cursor.execute("SELECT id, task, due_date FROM tasks WHERE task = ? and completed = 0", (task,)).fetchall()
         return created_task[-1]
 
-    def get_tasks(self):
+    def get_lessons(self):
         """Get all completed and uncomplete tasks"""
         uncomplete_tasks = self.cursor.execute("SELECT id, task, due_date FROM tasks WHERE completed = 0").fetchall()
         completed_tasks = self.cursor.execute("SELECT id, task, due_date FROM tasks WHERE completed = 1").fetchall()
@@ -29,12 +29,12 @@ class Database:
 
 
 
-    def mark_task_as_complete(self, taskid):
+    def mark_lesson_as_complete(self, taskid):
         """Mark tasks as complete"""
         self.cursor.execute("UPDATE tasks SET completed=1 WHERE id=?", (taskid,))
         self.con.commit()
 
-    def mark_task_as_incomplete(self, taskid):
+    def mark_lesson_as_incomplete(self, taskid):
         """Mark task as uncomplete"""
         self.cursor.execute("UPDATE tasks SET completed=0 WHERE id=?", (taskid,))
         self.con.commit()
