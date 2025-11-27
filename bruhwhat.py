@@ -1,7 +1,7 @@
 from kivymd.app import MDApp
 from kivymd.uix.dialog import MDDialog
 from kivymd.uix.boxlayout import MDBoxLayout
-from kivymd.uix.pickers import MDDatePicker
+from kivymd.uix.pickers import MDDatePicker, MDTimePicker
 from datetime import datetime
 from kivymd.uix.list import TwoLineAvatarIconListItem, ILeftBodyTouch
 from kivymd.uix.selectioncontrol import MDCheckbox
@@ -28,9 +28,6 @@ class ListItemWithCheckbox(TwoLineAvatarIconListItem):
         self.parent.remove_widget(the_list_item)
         db.delete_task(the_list_item.pk)# Here
 
-    def delete_item(self, the_list_item):
-        '''Delete the task'''
-        self.parent.remove_widget(the_list_item)
 
 
 
@@ -42,20 +39,20 @@ class DialogContent(MDBoxLayout):
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
         # set the date_text label to today's date when useer first opens dialog box
-        self.ids.date_text.text = str(datetime.now().strftime('%A %d %B %Y'))
+        self.ids.date_text.text = str(datetime.now().strftime('%H:%M %p'))
 
 
     def show_date_picker(self):
         """Opens the date picker"""
-        date_dialog = MDDatePicker()
+        date_dialog = MDTimePicker()
         date_dialog.bind(on_save=self.on_save)
         date_dialog.open()
 
-    def on_save(self, instance, value, date_range):
+    def on_save(self, instance, value):
         """This functions gets the date from the date picker and converts its it a
         more friendly form then changes the date label on the dialog to that"""
 
-        date = value.strftime('%A %d %B %Y')
+        date = value.strftime('%H:%M %p')
         self.ids.date_text.text = str(date)
 
 
@@ -65,12 +62,13 @@ class MainApp(MDApp):
     def build(self):
         # Setting theme to my favorite theme
         self.theme_cls.primary_palette = "DeepPurple"
+        self.theme_cls.theme_style = "Dark"
 
     # Add the below functions
     def show_task_dialog(self):
         if not self.task_list_dialog:
             self.task_list_dialog = MDDialog(
-                title="Create Task",
+                title="Add Lecture",
                 type="custom",
                 content_cls=DialogContent(),
             )
