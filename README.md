@@ -1,4 +1,5 @@
 # Work in Progress Kivy & kivyMD TimeTable App
-> what am i doing
-> someone help me my project is due on sunday ;w;
+> Includes all testing code and database files during me learning kivy
+> i didn't have time to finish the kivy app and therefore finally resort to using normal Python ;W;
+>
 
